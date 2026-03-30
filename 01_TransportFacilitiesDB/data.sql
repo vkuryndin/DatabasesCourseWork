@@ -1,3 +1,5 @@
+-- Скрипт наполнения базы данными
+
 -- Вставка данных в таблицу Vehicle
 INSERT INTO Vehicle (maker, model, type) VALUES
     ('Toyota', 'Camry', 'Car'),

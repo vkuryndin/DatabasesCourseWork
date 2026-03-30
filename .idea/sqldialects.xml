@@ -7,5 +7,11 @@
     <file url="file://$PROJECT_DIR$/02_AutoRacingDB/data.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/02_AutoRacingDB/schema.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/02_AutoRacingDB/solutions.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/03_HotelBookingDB/data.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/03_HotelBookingDB/schema.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/03_HotelBookingDB/solutions.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/04_OrgStructureDB/data.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/04_OrgStructureDB/schema.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/04_OrgStructureDB/solutions.sql" dialect="PostgreSQL" />
   </component>
 </project>

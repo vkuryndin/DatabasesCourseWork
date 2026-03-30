@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourcePerFileMappings">
+    <file url="file://$PROJECT_DIR$/01_TransportFacilitiesDB/data.sql" value="060b2bd5-d54e-4e9a-87a5-b862ca274229" />
+    <file url="file://$PROJECT_DIR$/01_TransportFacilitiesDB/schema.sql" value="060b2bd5-d54e-4e9a-87a5-b862ca274229" />
+    <file url="file://$PROJECT_DIR$/01_TransportFacilitiesDB/solultions.sql" value="060b2bd5-d54e-4e9a-87a5-b862ca274229" />
+    <file url="file://$PROJECT_DIR$/02_AutoRacingDB/data.sql" value="0f091231-7423-445b-9f23-145995bcc5ff" />
+    <file url="file://$PROJECT_DIR$/02_AutoRacingDB/schema.sql" value="0f091231-7423-445b-9f23-145995bcc5ff" />
+    <file url="file://$PROJECT_DIR$/02_AutoRacingDB/solutions.sql" value="0f091231-7423-445b-9f23-145995bcc5ff" />
+    <file url="file://$PROJECT_DIR$/03_HotelBookingDB/data.sql" value="d367c97a-de38-4c14-9955-44f06e7e1911" />
+    <file url="file://$PROJECT_DIR$/03_HotelBookingDB/schema.sql" value="d367c97a-de38-4c14-9955-44f06e7e1911" />
+    <file url="file://$PROJECT_DIR$/03_HotelBookingDB/solutions.sql" value="d367c97a-de38-4c14-9955-44f06e7e1911" />
+    <file url="file://$PROJECT_DIR$/04_OrgStructureDB/data.sql" value="6de183fc-3b55-413f-a9ca-27d35d26a5da" />
+    <file url="file://$PROJECT_DIR$/04_OrgStructureDB/schema.sql" value="6de183fc-3b55-413f-a9ca-27d35d26a5da" />
+    <file url="file://$PROJECT_DIR$/04_OrgStructureDB/solutions.sql" value="6de183fc-3b55-413f-a9ca-27d35d26a5da" />
+  </component>
+</project>
