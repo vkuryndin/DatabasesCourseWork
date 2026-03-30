@@ -169,7 +169,7 @@ ORDER BY cs.car_class, cs.average_position;
 --Определить, какие классы автомобилей имеют наибольшее количество автомобилей с низкой средней позицией (больше 3.0)
 --и вывести информацию о каждом автомобиле из этих классов, включая его имя, класс, среднюю позицию, количество гонок,
 --в которых он участвовал, страну производства класса автомобиля, а также общее количество гонок для каждого класса.
---Отсортировать результаты по количеству автомобилей с низкой средней позицией/
+--Отсортировать результаты по количеству автомобилей с низкой средней позицией
 
 --Тут в итоге будет два варианта:
 -- 1. Вариант с точным соответствием эталонному выводу, который есть в постановке задачи
@@ -228,12 +228,10 @@ WITH car_stats AS (
          FROM car_stats
          GROUP BY car_class
      ),
-
      max_low_position AS (
          SELECT MAX(low_position_count) AS max_count
          FROM class_stats
      )
-
 SELECT cs.car_name,
        cs.car_class,
        ROUND(cs.average_position, 4) AS average_position,
@@ -244,5 +242,6 @@ SELECT cs.car_name,
 FROM car_stats cs
          JOIN class_stats cls ON cls.car_class = cs.car_class
          JOIN max_low_position mlp ON cls.low_position_count = mlp.max_count
+WHERE cls.low_position_count > 0
 ORDER BY cls.low_position_count DESC, cs.car_class, cs.car_name;
 

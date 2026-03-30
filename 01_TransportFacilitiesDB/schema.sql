@@ -1,3 +1,5 @@
+-- Используем MySQL
+
 -- создание таблицы Vehicle
 
 CREATE TABLE Vehicle (
