@@ -121,39 +121,28 @@ WITH hotel_categories AS (
                ELSE 'Дорогой'
                END AS hotel_type
     FROM Hotel h
-
              JOIN Room r ON r.ID_hotel = h.ID_hotel
     GROUP BY h.ID_hotel, h.name
-)
-
-SELECT c.ID_customer,
-       c.name,
-       CASE
-           WHEN BOOL_OR(hc.hotel_type = 'Дорогой') THEN 'Дорогой'
-           WHEN BOOL_OR(hc.hotel_type = 'Средний') THEN 'Средний'
-           ELSE 'Дешевый'
-           END AS preferred_hotel_type,
-       STRING_AGG(DISTINCT hc.hotel_name, ',' ORDER BY hc.hotel_name) AS visited_hotels
-FROM Customer c
-
-         JOIN Booking b ON b.ID_customer = c.ID_customer
-
-         JOIN Room r ON r.ID_room = b.ID_room
-
-         JOIN hotel_categories hc ON hc.ID_hotel = r.ID_hotel
-GROUP BY c.ID_customer, c.name
-
-ORDER BY CASE
-             WHEN CASE
-                      WHEN BOOL_OR(hc.hotel_type = 'Дорогой') THEN 'Дорогой'
-                      WHEN BOOL_OR(hc.hotel_type = 'Средний') THEN 'Средний'
-                      ELSE 'Дешевый'
-                      END = 'Дешевый' THEN 1
-             WHEN CASE
-                      WHEN BOOL_OR(hc.hotel_type = 'Дорогой') THEN 'Дорогой'
-                      WHEN BOOL_OR(hc.hotel_type = 'Средний') THEN 'Средний'
-                      ELSE 'Дешевый'
-                      END = 'Средний' THEN 2
-             ELSE 3
-             END,
-         c.ID_customer;
+),
+     customer_preferences AS (
+         SELECT c.ID_customer,
+                c.name,
+                CASE
+                    WHEN BOOL_OR(hc.hotel_type = 'Дорогой') THEN 'Дорогой'
+                    WHEN BOOL_OR(hc.hotel_type = 'Средний') THEN 'Средний'
+                    ELSE 'Дешевый'
+                    END AS preferred_hotel_type,
+                STRING_AGG(DISTINCT hc.hotel_name, ',' ORDER BY hc.hotel_name) AS visited_hotels
+         FROM Customer c
+                  JOIN Booking b ON b.ID_customer = c.ID_customer
+                  JOIN Room r ON r.ID_room = b.ID_room
+                  JOIN hotel_categories hc ON hc.ID_hotel = r.ID_hotel
+         GROUP BY c.ID_customer, c.name
+     )
+SELECT ID_customer,
+       name,
+       preferred_hotel_type,
+       visited_hotels
+FROM customer_preferences
+ORDER BY ARRAY_POSITION(ARRAY['Дешевый', 'Средний', 'Дорогой'], preferred_hotel_type),
+         ID_customer;
