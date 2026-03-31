@@ -87,3 +87,30 @@ FROM (
 ) AS result
 
 ORDER BY horsepower IS NULL, horsepower DESC;
+
+-- ДОПОЛНИТЕЛЬНЫЕ РЕШЕНИЯ
+-- Дополнительное решение 1
+-- Найти самое дорогое транспортное средство в каждом типе транспортных средств
+SELECT av.maker,
+       av.model,
+       av.vehicle_type,
+       av.price
+FROM all_vehicles_view av
+         JOIN (
+    SELECT vehicle_type,
+           MAX(price) AS max_price
+    FROM all_vehicles_view
+    GROUP BY vehicle_type
+) max_prices
+              ON av.vehicle_type = max_prices.vehicle_type
+                  AND av.price = max_prices.max_price
+ORDER BY av.vehicle_type;
+
+-- Дополнительное решение 2
+-- Подсчитать кол-во моделей и среднюю цену для каждого типа транспортного средства
+SELECT vehicle_type,
+       COUNT(*) AS total_models,
+       ROUND(AVG(price), 2) AS average_price
+FROM all_vehicles_view
+GROUP BY vehicle_type
+ORDER BY vehicle_type;

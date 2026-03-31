@@ -242,3 +242,41 @@ FROM car_stats cs
 WHERE cls.low_position_count > 0
 ORDER BY cls.low_position_count DESC, cs.car_class, cs.car_name;
 
+--ДОПОЛНИТЕЛЬНЫЕ РЕШЕНИЯ
+-- Дополнительное решение 1
+--Найти автомобиль с лучшей средней позицией в каждом классе
+WITH ranked_cars AS (
+    SELECT car_name,
+           car_class,
+           car_country,
+           average_position,
+           race_count,
+           ROW_NUMBER() OVER (
+               PARTITION BY car_class
+               ORDER BY average_position ASC, car_name ASC
+               ) AS rn
+    FROM car_race_stats_view
+)
+SELECT car_name,
+       car_class,
+       car_country,
+       ROUND(average_position, 4) AS average_position,
+       race_count
+FROM ranked_cars
+WHERE rn = 1
+ORDER BY average_position, car_name;
+
+
+-- Дополнительное решение 2
+-- Найти автомобили, чья средняя позиция хуже общего среднего значения по всем автомобилям.
+SELECT car_name,
+       car_class,
+       car_country,
+       ROUND(average_position, 4) AS average_position,
+       race_count
+FROM car_race_stats_view
+WHERE average_position > (
+    SELECT AVG(average_position)
+    FROM car_race_stats_view
+)
+ORDER BY average_position DESC, car_name;
