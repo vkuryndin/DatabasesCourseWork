@@ -37,7 +37,6 @@ WITH RECURSIVE employee_hierarchy AS (
     FROM Employees e
              JOIN employee_hierarchy eh ON e.ManagerID = eh.EmployeeID
 ),
-
                project_agg AS (
                    SELECT eh.EmployeeID,
                           STRING_AGG(DISTINCT p.ProjectName, ', ' ORDER BY p.ProjectName) AS ProjectNames
@@ -45,7 +44,6 @@ WITH RECURSIVE employee_hierarchy AS (
                             LEFT JOIN Projects p ON p.DepartmentID = eh.DepartmentID
                    GROUP BY eh.EmployeeID
                ),
-
                task_agg AS (
                    SELECT eh.EmployeeID,
                           STRING_AGG(t.TaskName, ', ' ORDER BY t.TaskName) AS TaskNames
@@ -91,9 +89,7 @@ WITH RECURSIVE employee_hierarchy AS (
            e.RoleID
     FROM Employees e
     WHERE e.EmployeeID = 1
-
     UNION ALL
-
     SELECT e.EmployeeID,
            e.Name,
            e.ManagerID,
@@ -161,9 +157,7 @@ WITH RECURSIVE subordinate_tree AS (
     SELECT e.EmployeeID AS manager_id,
            s.EmployeeID AS subordinate_id
     FROM Employees e
-             -- Join Employees with Roles by role ID
              JOIN Roles r ON r.RoleID = e.RoleID
-        -- Join Employees with Employees by manager ID
              JOIN Employees s ON s.ManagerID = e.EmployeeID
     WHERE r.RoleName = 'Менеджер'
 
@@ -172,7 +166,6 @@ WITH RECURSIVE subordinate_tree AS (
     SELECT st.manager_id,
            e.EmployeeID AS subordinate_id
     FROM subordinate_tree st
-             -- Join Employees with the recursive tree by manager ID
              JOIN Employees e ON e.ManagerID = st.subordinate_id
 ),
                subordinate_agg AS (
@@ -185,7 +178,6 @@ WITH RECURSIVE subordinate_tree AS (
                    SELECT e.EmployeeID,
                           STRING_AGG(DISTINCT p.ProjectName, ', ' ORDER BY p.ProjectName) AS ProjectNames
                    FROM Employees e
-                            -- Join Employees with Projects by department ID
                             LEFT JOIN Projects p ON p.DepartmentID = e.DepartmentID
                    GROUP BY e.EmployeeID
                ),
@@ -193,7 +185,6 @@ WITH RECURSIVE subordinate_tree AS (
                    SELECT e.EmployeeID,
                           STRING_AGG(t.TaskName, ', ' ORDER BY t.TaskName) AS TaskNames
                    FROM Employees e
-                            -- Join Employees with Tasks by employee ID
                             LEFT JOIN Tasks t ON t.AssignedTo = e.EmployeeID
                    GROUP BY e.EmployeeID
                )

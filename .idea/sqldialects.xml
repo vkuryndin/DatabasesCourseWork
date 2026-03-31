@@ -3,7 +3,7 @@
   <component name="SqlDialectMappings">
     <file url="file://$PROJECT_DIR$/01_TransportFacilitiesDB/data.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/01_TransportFacilitiesDB/schema.sql" dialect="MySQL" />
-    <file url="file://$PROJECT_DIR$/01_TransportFacilitiesDB/solultions.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/01_TransportFacilitiesDB/solutions.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/02_AutoRacingDB/data.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/02_AutoRacingDB/schema.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/02_AutoRacingDB/solutions.sql" dialect="PostgreSQL" />
