@@ -242,41 +242,44 @@ FROM car_stats cs
 WHERE cls.low_position_count > 0
 ORDER BY cls.low_position_count DESC, cs.car_class, cs.car_name;
 
---ДОПОЛНИТЕЛЬНЫЕ РЕШЕНИЯ
--- Дополнительное решение 1
---Найти автомобиль с лучшей средней позицией в каждом классе
-WITH ranked_cars AS (
-    SELECT car_name,
-           car_class,
-           car_country,
-           average_position,
-           race_count,
-           ROW_NUMBER() OVER (
-               PARTITION BY car_class
-               ORDER BY average_position ASC, car_name ASC
-               ) AS rn
-    FROM car_race_stats_view
-)
-SELECT car_name,
-       car_class,
-       car_country,
-       ROUND(average_position, 4) AS average_position,
-       race_count
-FROM ranked_cars
-WHERE rn = 1
-ORDER BY average_position, car_name;
+--ДОПОЛНИТЕЛЬНЫЕ РЕШЕНИЯ (используем view из файла views.sql)
+-- Дополнительная задача 1
+-- Определить, какие автомобили из каждого класса имеют наименьшую среднюю позицию в гонках,
+-- и вывести информацию о каждом таком автомобиле для данного класса, включая его класс,
+-- среднюю позицию и количество гонок, в которых он участвовал.
+-- Также отсортировать результаты по средней позиции.
 
+-- Дополнительное решение 1
+WITH best_in_class AS (
+    SELECT car_class,
+           MIN(average_position) AS best_average_position
+    FROM car_race_stats_view
+    GROUP BY car_class
+)
+SELECT crs.car_name,
+       crs.car_class,
+       ROUND(crs.average_position, 4) AS average_position,
+       crs.race_count
+FROM car_race_stats_view crs
+         JOIN best_in_class bc
+              ON bc.car_class = crs.car_class
+                  AND bc.best_average_position = crs.average_position
+ORDER BY crs.average_position, crs.car_class, crs.car_name;
+
+
+-- Дополнительная задача 2
+-- Определить автомобиль, который имеет наименьшую среднюю позицию в гонках среди всех автомобилей,
+-- и вывести информацию об этом автомобиле, включая его класс, среднюю позицию,
+-- количество гонок, в которых он участвовал, и страну производства класса автомобиля.
+-- Если несколько автомобилей имеют одинаковую наименьшую среднюю позицию,
+-- выбрать один из них по алфавиту (по имени автомобиля).
 
 -- Дополнительное решение 2
--- Найти автомобили, чья средняя позиция хуже общего среднего значения по всем автомобилям.
 SELECT car_name,
        car_class,
-       car_country,
        ROUND(average_position, 4) AS average_position,
-       race_count
+       race_count,
+       car_country
 FROM car_race_stats_view
-WHERE average_position > (
-    SELECT AVG(average_position)
-    FROM car_race_stats_view
-)
-ORDER BY average_position DESC, car_name;
+ORDER BY average_position, car_name
+LIMIT 1;

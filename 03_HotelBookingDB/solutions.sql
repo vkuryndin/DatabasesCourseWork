@@ -51,7 +51,6 @@ WITH customer_stats AS (
              JOIN Hotel h ON h.ID_hotel = r.ID_hotel
     GROUP BY c.ID_customer, c.name
 ),
-
      frequent_customers AS (
          SELECT ID_customer,
                 name,
@@ -71,7 +70,6 @@ WITH customer_stats AS (
          FROM customer_stats
          WHERE total_spent > 500
      )
-
 SELECT fc.ID_customer,
        fc.name,
        fc.total_bookings,

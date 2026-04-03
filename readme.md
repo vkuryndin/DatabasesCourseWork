@@ -30,11 +30,13 @@
         ├── 01_TransportFacilitiesDB/
         │   ├── data.sql
         │   ├── schema.sql
-        │   └── solutions.sql
+        │   ├── solutions.sql       
+        │   └── views.sql (дополнительно)
         ├── 02_AutoRacingDB/
         │   ├── data.sql
         │   ├── schema.sql
-        │   └── solutions.sql
+        │   ├── solutions.sql       
+        │   └── views.sql (дополнительно)
         ├── 03_HotelBookingDB/
         │   ├── data.sql
         │   ├── schema.sql
